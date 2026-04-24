@@ -8,6 +8,7 @@ const AllTheBooks = () => {
       {
         FantasyBooks.map((book) => (
             <MyBookCard 
+                key={book.asin}
                 img={book.img}
                 title={book.title}
                 category={book.category}
