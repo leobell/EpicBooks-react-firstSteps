@@ -28,6 +28,7 @@ const AllTheBooks = () => {
                 img={book.img}
                 title={book.title}
                 category={book.category}
+                asin={book.asin}
             />
         ))
       }

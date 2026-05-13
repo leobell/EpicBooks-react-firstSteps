@@ -3,32 +3,31 @@ import AddComment from '../addComment/AddComment'
 import CommentList from '../commentList/CommentList'
 
 const CommentArea = ( { asin } ) => {
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ5Mjg0MDRlMGUwYjAwMTU5MmZlOGIiLCJpYXQiOjE3NzU4MzkyOTcsImV4cCI6MTc3NzA0ODg5N30.13FHx79lo0qcjVZCw8RCUoFYGPenRqT0s-SEX5UglyM'
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA0MmE0YmIwMmIzZjAwMTViYmU1MzYiLCJpYXQiOjE3Nzg2NTc4NjcsImV4cCI6MTc3OTg2NzQ2N30.D2eobkTiqUH6bRh7iTb811bMEdlX2fIwkKesNv3sKW8'
 
   const [comments, setComments] = useState([])
-
-  useEffect(() => {
-    
-    const getComments = async () => {
-      try {
-        const response = await fetch('https://striveschool-api.herokuapp.com/api/comments/' + asin,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        )
-
-        if(response.ok){
-          let comments = await response.json()
-          setComments(comments)
+  const getComments = async () => {
+    try {
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/books/${asin}/comments/`,
+        {
+          headers: {
+            Authorization: token,
+          },
         }
-        
-      } catch (error) {
-        console.error(error)
+      )
+
+      if(response.ok){
+        let comments = await response.json()
+        setComments(comments)
+        console.log(comments)
       }
+      
+    } catch (error) {
+      console.error(error)
     }
-    
+  }
+  useEffect(() => {
+    getComments()
   }, [asin])
 
   const [showContent, setShowContent] = useState(false);
@@ -47,6 +46,7 @@ const CommentArea = ( { asin } ) => {
         show={showContent}
         handleClose={toggleAddComment}
         asin = {asin}
+        refreshComments={getComments}
       />
       <CommentList 
         commentBook = {comments}

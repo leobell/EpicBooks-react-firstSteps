@@ -1,10 +1,21 @@
 import React from 'react'
+import SingleComment from '../singleComment/SingleComment'
 
 const CommentList = ({ commentBook }) => {
+
+  console.log(commentBook)
+  
   return (
-    <div>
+    <div className='mt-3'>
+      <h4>Recensioni: </h4>
       {commentBook.map((comment) => {
-        <p className='mb-3'> {comment} </p>
+        return(
+          <SingleComment
+          rate = {comment.rate}
+          comment = {comment.comment}
+          key={comment._id}
+          />
+        )
       })}
     </div>
   )

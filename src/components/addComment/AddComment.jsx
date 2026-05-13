@@ -4,14 +4,17 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-const AddComment = ({ show, handleClose, asin }) => {
-    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ5Mjg0MDRlMGUwYjAwMTU5MmZlOGIiLCJpYXQiOjE3NzU4MzkyOTcsImV4cCI6MTc3NzA0ODg5N30.13FHx79lo0qcjVZCw8RCUoFYGPenRqT0s-SEX5UglyM'
+const AddComment = ({ show, handleClose, asin, refreshComments }) => {
+    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NTVhZWJhMGYxMjAwMTUyZTc3NmUiLCJpYXQiOjE3Nzc1NzIzNzAsImV4cCI6MTc3ODc4MTk3MH0.dy6gGBLPrFz2TNWeWwcIWhVvTauLyAHGaKmx8kCrh-c'
 
     const [comment, setComment] = useState({
         comment:'',
-        rating: 1,
+        rate: 1,
         elementId: asin
     })
+
+    
+    console.log(comment)
 
     const onChangeInput = (e) => {
         const {name, value} = e.target
@@ -32,6 +35,11 @@ const AddComment = ({ show, handleClose, asin }) => {
                     Authorization: token
                 }
             })
+
+            if(response.ok){
+                handleClose()
+                refreshComments()
+            }
         } catch (error) {
             console.error(error)
         }
@@ -50,12 +58,12 @@ const AddComment = ({ show, handleClose, asin }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <form
-                        //onSubmit={onSubmit}
+                        onSubmit={onSubmit}
                     >
                         <Form.Select 
                             aria-label="Default select example"
                             className='mb-3'
-                            name='rating'
+                            name='rate'
                             onChange={onChangeInput}
                         >
                             <option>Seleziona numero stelle</option>
@@ -74,6 +82,7 @@ const AddComment = ({ show, handleClose, asin }) => {
                         />
 
                         <button
+                            type='submit'
                             className='btn btn-secondary'
                         >Aggiungi Commento</button>
                     </form>
