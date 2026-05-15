@@ -4,17 +4,17 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-const AddComment = ({ show, handleClose, asin, refreshComments }) => {
+const ModifyComment = ({ show, handleClose, refreshComments, commentsBook }) => {
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA0MmE0YmIwMmIzZjAwMTViYmU1MzYiLCJpYXQiOjE3Nzg2NTc4NjcsImV4cCI6MTc3OTg2NzQ2N30.D2eobkTiqUH6bRh7iTb811bMEdlX2fIwkKesNv3sKW8'
+
+    const [idComment, setIdComment] = useState('')
 
     const [comment, setComment] = useState({
         comment:'',
-        rate: 1,
-        elementId: asin
+        rate: 1
     })
-
     
-    console.log(comment)
+    const onSelectedComment = (e) => setIdComment(e.target.value)
 
     const onChangeInput = (e) => {
         const {name, value} = e.target
@@ -27,8 +27,8 @@ const AddComment = ({ show, handleClose, asin, refreshComments }) => {
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('https://striveschool-api.herokuapp.com/api/comments',{
-                method: 'POST',
+            const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${idComment}`,{
+                method: 'PATCH',
                 body: JSON.stringify(comment),
                 headers: {
                     'Content-type' : 'application/json',
@@ -45,6 +45,7 @@ const AddComment = ({ show, handleClose, asin, refreshComments }) => {
         }
     }
 
+
     return (
         <div>
             <Modal
@@ -54,12 +55,25 @@ const AddComment = ({ show, handleClose, asin, refreshComments }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Aggiungi un commento</Modal.Title>
+                    <Modal.Title>Modifica un commento</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form
                         onSubmit={onSubmit}
                     >
+                        <Form.Select 
+                            aria-label="Default select example"
+                            className='mb-3'
+                            name='commentList'
+                            onChange={onSelectedComment}
+                            value={idComment}
+                        >
+                            <option>Seleziona commento</option>
+                            {commentsBook.map((commentBook) => {
+                                return <option value={commentBook._id} key={commentBook._id}>{commentBook.comment}</option>
+                            })}
+                            
+                        </Form.Select>
                         <Form.Select 
                             aria-label="Default select example"
                             className='mb-3'
@@ -84,7 +98,7 @@ const AddComment = ({ show, handleClose, asin, refreshComments }) => {
                         <button
                             type='submit'
                             className='btn btn-secondary'
-                        >Aggiungi Commento</button>
+                        >Modifica Commento</button>
                     </form>
                 </Modal.Body>
             </Modal>
@@ -92,4 +106,4 @@ const AddComment = ({ show, handleClose, asin, refreshComments }) => {
     )
 }
 
-export default AddComment
+export default ModifyComment

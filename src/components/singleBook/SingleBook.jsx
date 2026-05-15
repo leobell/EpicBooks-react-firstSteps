@@ -12,7 +12,7 @@ const SingleBook = (props) => {
   //console.log(selected)
 
   return (
-    <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div className="col-12   col-md-6 col-lg-4 col-xxl-3 mb-4">
       <Card 
         style={{ width: '100%' , border: selected ? "4px solid green" : "none"}}
       >

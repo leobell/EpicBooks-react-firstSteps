@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import FantasyBooks from '../../books/fantasy.json'
 import SingleBook from '../singleBook/SingleBook'
+import ErrorAlert from '../errorAlert/ErrorAlert'
 
 const AllTheBooks = () => {
 
   const [searchInput, setSearchInput] = useState('')
   const filterBook = FantasyBooks.filter(book => book.title.toLowerCase().includes(searchInput.toLowerCase()))
 
-  console.log(searchInput)
+  console.log(filterBook)
 
   return (
     <div className='row'>
@@ -20,6 +21,13 @@ const AllTheBooks = () => {
           type="text"
         />
       </form>
+
+      {(filterBook.length === 0) && 
+        <ErrorAlert 
+          descriptionError = "A quanto pare non c'è il libro che cerchi."
+        />
+      }
+
       {
         filterBook.map((book) => (
             
