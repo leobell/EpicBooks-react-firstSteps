@@ -10,7 +10,7 @@ import SpinnerLoading from '../spinnerLoading/SpinnerLoading';
 import ErrorAlert from '../errorAlert/ErrorAlert';
 
 const CommentArea = ( { asin } ) => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA0MmE0YmIwMmIzZjAwMTViYmU1MzYiLCJpYXQiOjE3Nzg2NTc4NjcsImV4cCI6MTc3OTg2NzQ2N30.D2eobkTiqUH6bRh7iTb811bMEdlX2fIwkKesNv3sKW8'
+    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA0MmE0YmIwMmIzZjAwMTViYmU1MzYiLCJpYXQiOjE3NzkyNjQ3ODAsImV4cCI6MTc4MDQ3NDM4MH0.QlYkzXiyREiMBQgpaPavSAbMAiPOmcl0eE1dB_Zbn0A'
 
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState('')

@@ -2,7 +2,7 @@ import React from 'react'
 import Welcome from '../welcome/Welcome'
 import AllTheBooks from '../allTheBooks/AllTheBooks'
 
-const MyMain = () => {
+const MyMain = ( {searchBook} ) => {
   return (
     <div className='container'>
         <div className="row">
@@ -10,7 +10,9 @@ const MyMain = () => {
                <Welcome /> 
             </div>
         </div>
-        <AllTheBooks />
+        <AllTheBooks
+            searchBook={searchBook}
+        />
     </div>
 )}
 

@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { ThemeContext } from '../../contexts/themeContext/ThemeContext';
 
 const ModifyComment = ({ show, handleClose, refreshComments, commentsBook }) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA0MmE0YmIwMmIzZjAwMTViYmU1MzYiLCJpYXQiOjE3Nzg2NTc4NjcsImV4cCI6MTc3OTg2NzQ2N30.D2eobkTiqUH6bRh7iTb811bMEdlX2fIwkKesNv3sKW8'
+    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA0MmE0YmIwMmIzZjAwMTViYmU1MzYiLCJpYXQiOjE3NzkyNjQ3ODAsImV4cCI6MTc4MDQ3NDM4MH0.QlYkzXiyREiMBQgpaPavSAbMAiPOmcl0eE1dB_Zbn0A'
+    const { isDarkMode } = useContext(ThemeContext)
+    const computedThemeBg = isDarkMode ? 'bg-light' : 'bg-dark'
+    const computedThemeText = isDarkMode ? 'text-dark' : 'text-light'
 
     const [idComment, setIdComment] = useState('')
 
@@ -28,7 +32,7 @@ const ModifyComment = ({ show, handleClose, refreshComments, commentsBook }) => 
         e.preventDefault()
         try {
             const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${idComment}`,{
-                method: 'PATCH',
+                method: 'PUT',
                 body: JSON.stringify(comment),
                 headers: {
                     'Content-type' : 'application/json',
@@ -54,10 +58,10 @@ const ModifyComment = ({ show, handleClose, refreshComments, commentsBook }) => 
                 backdrop="static"
                 keyboard={false}
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>Modifica un commento</Modal.Title>
+                <Modal.Header className={`${computedThemeBg}`} closeButton>
+                    <Modal.Title className={`${computedThemeText}`}>Modifica un commento</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className={`${computedThemeBg}`}>
                     <form
                         onSubmit={onSubmit}
                     >

@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import CommentArea from '../commentArea/CommentArea'
+import { ThemeContext } from '../../contexts/themeContext/ThemeContext'
 
 const SingleBook = (props) => {
   const [selected, setSelected] = useState(false)
-
+  const { isDarkMode } = useContext(ThemeContext)
+  const computedTheme = isDarkMode ? 'bg-light text-dark' : 'bg-dark text-light'
+  const computedThemeBorder = isDarkMode ? 'black' : 'white' 
   const onSelected = () => {
     setSelected(!selected)
   }
 
-  //console.log(selected)
-
   return (
-    <div className="col-12   col-md-6 col-lg-4 col-xxl-3 mb-4">
+    <div className="col-12 col-md-6 col-lg-4 col-xxl-3 mb-4">
       <Card 
-        style={{ width: '100%' , border: selected ? "4px solid green" : "none"}}
+        style={{ width: '100%' , border: selected ? `4px solid ${computedThemeBorder}` : "none"}}
+        className={`${computedTheme} p-3`}
       >
         <Card.Img onClick={onSelected} variant="top" src={props.img} style={{aspectRatio: '1', objectFit: 'contain'}}/>
         <Card.Body>
