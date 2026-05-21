@@ -92,7 +92,6 @@ const CommentArea = ( { asin } ) => {
         refreshComments={getComments}
         commentsBook = {comments}
       />
-      <h4 className='mt-3'>Recensioni: </h4>
 
       {isLoading && (
         <SpinnerLoading />

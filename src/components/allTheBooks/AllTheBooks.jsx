@@ -3,7 +3,7 @@ import FantasyBooks from '../../books/fantasy.json'
 import SingleBook from '../singleBook/SingleBook'
 import ErrorAlert from '../errorAlert/ErrorAlert'
 
-const AllTheBooks = ( {searchBook} ) => {
+const AllTheBooks = ( {searchBook, setIsSelectedAsin} ) => {
 
   const filterBook = FantasyBooks.filter(book => book.title.toLowerCase().includes(searchBook.toLowerCase()))
 
@@ -26,6 +26,7 @@ const AllTheBooks = ( {searchBook} ) => {
                 title={book.title}
                 category={book.category}
                 asin={book.asin}
+                setIsSelectedAsin={setIsSelectedAsin}
             />
         ))
       }
